@@ -6,9 +6,6 @@ import FeedbackOptions from 'components/FeedbackOptions';
 import Notification from 'components/Notification';
 
 
-function capitalize(s) {
-  return s && s[0].toUpperCase() + s.slice(1);
-}
 
 function App() {
   const [good, addGood] = useState(0);
@@ -37,7 +34,10 @@ function App() {
   }, [good, neutral, bad]);
 
   const incrementFeedback = e => {
-    eval('handleAdd' + capitalize(e.target.innerText) + '()');
+    if (e.target.innerText==="good") {handleAddGood()};
+    if (e.target.innerText==="neutral") {handleAddNeutral()};
+    if (e.target.innerText==="bad") {handleAddBad()};
+    
   };
 
   return (
