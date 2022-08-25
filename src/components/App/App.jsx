@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Wrapper } from './App.styled';
 import SectionWrapper from 'components/SectionWrapper';
 import Statistics from 'components/Statistics';
 import FeedbackOptions from 'components/FeedbackOptions';
 import Notification from 'components/Notification';
 
-
-
 function App() {
   const [good, addGood] = useState(0);
   const [neutral, addNeutral] = useState(0);
   const [bad, addBad] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [positiveFeedbackPercentage, setPositiveFeedbackPercentage] =
-    useState(0);
+
+  const total = good + neutral + bad;
+  const positiveFeedbackPercentage = Math.round(
+    good / ((good + neutral + bad) / 100)
+  );
   const feedbackList = { good, neutral, bad };
 
   const handleAddGood = () => {
@@ -26,18 +26,16 @@ function App() {
     addBad(state => state + 1);
   };
 
-  useEffect(() => {
-    setTotal(good + neutral + bad);
-    setPositiveFeedbackPercentage(
-      Math.round(good / ((good + neutral + bad) / 100))
-    );
-  }, [good, neutral, bad]);
-
   const incrementFeedback = e => {
-    if (e.target.innerText==="good") {handleAddGood()};
-    if (e.target.innerText==="neutral") {handleAddNeutral()};
-    if (e.target.innerText==="bad") {handleAddBad()};
-    
+    if (e.target.innerText === 'good') {
+      handleAddGood();
+    }
+    if (e.target.innerText === 'neutral') {
+      handleAddNeutral();
+    }
+    if (e.target.innerText === 'bad') {
+      handleAddBad();
+    }
   };
 
   return (
